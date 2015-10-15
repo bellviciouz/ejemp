@@ -7,7 +7,7 @@
   <author email="hi@ionicframework" href="http://ionicframework.com/">
       Ionic Framework Team
     </author>
-    
+    <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
   <content src="index.html"/>
   <access origin="*"/>
   
