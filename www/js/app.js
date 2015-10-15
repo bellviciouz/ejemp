@@ -1,16 +1,22 @@
 // Ionic Starter App
-var db;
 
+//Instancia de base de datos
+var db;
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services' , 'ngCordova'])
 
-.run(function($ionicPlatform) {
+
+
+
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services' , 'ngCordova' ])
+
+.run(function($ionicPlatform,$cordovaSQLite,$ionicLoading) {
   $ionicPlatform.ready(function() {
+       $ionicLoading.show({ template: 'Loading...' });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -24,7 +30,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services' , 
     }
     
     
-    if(window.cordova) {
+  //aqui empieza mi codigo
+
+
+if(window.cordova) {
       // App syntax
       db = $cordovaSQLite.openDB("agenda.db");
       $ionicLoading.hide();
@@ -38,13 +47,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services' , 
     
 $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS personas (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre varchar(255), apellido varchar(255), telefono varchar(255), email varchar(255))');
     
-    
-    
-    
-    
-    
-    
+      
   });
+  
+
+  
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -107,3 +114,26 @@ $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS personas (id INTEGER PRIM
   $urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+
+
+/*
+
+$scope.guardar = function(persona) {
+  
+     var alertPopup = $ionicPopup.alert({
+       title: 'Agenda',
+       template: 'Datos almacenados'
+     });
+ 
+ 
+  $cordovaSQLite.execute(db, 'INSERT INTO personas (nombre,apellido,telefono,email) VALUES (?,?,?,?)', [persona.nombre,persona.apellido,persona.telefono,persona.email])
+        .then(function(result) {
+            $scope.statusMessage = "Registro guardado";
+    
+        }, function(error) {
+            $scope.statusMessage = "Error: " + error.message;
+        })
+ 
+}
+*/
