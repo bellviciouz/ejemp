@@ -18,14 +18,15 @@ return{
                 function(result) {
  
                     if (result.rows.length > 0) {
- 			for(var i=0;i<result.rows.length;i++)
+                for(var i=0;i<result.rows.length;i++)
 			{
 			
-			chats.push({ "nombre":result.rows.item(i).nombre, 
-			    "apellido":result.rows.item(i).apellido,
-			    "telefono":result.rows.item(i).telefono,
-			    "email":result.rows.item(i).email
-			    });
+			chats.push({ "id":result.rows.item(i).id, 
+			"nombre":result.rows.item(i).nombre,
+			"apellido":result.rows.item(i).apellido,
+			"telefono":result.rows.item(i).telefono,
+			"email":result.rows.item(i).email
+            });
                         }
                     }
                 },
@@ -34,7 +35,18 @@ return{
                 }
             );  
     return chats;
+    }
+    ,
+    remove: function(chat){
+        $cordovaSQLite.execute(db, "DELETE FROM personas WHERE id = ?", [chat.id])
+        .then(function(result){
+        statusMessage="Borrado";
+        },
+        function(error){
+         statusMessage="Error "+ error.message;  
+        });
     }  
+
 };
  
  
