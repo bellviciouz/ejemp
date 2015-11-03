@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function($cordovaSQLite) {
+.factory('Chats', function($cordovaSQLite,$ionicPopup) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -45,7 +45,37 @@ return{
         function(error){
          statusMessage="Error "+ error.message;  
         });
-    }  
+    },
+    
+    get: function(chatId) {
+        chats = [];
+       $cordovaSQLite.execute(db, "SELECT * FROM personas WHERE id = ?", [chatId])
+        .then(function(result){
+            
+            
+            if (result.rows.length > 0) {
+               
+			chats.push({ "id":result.rows.item(0).id, 
+			"nombre":result.rows.item(0).nombre,
+			"apellido":result.rows.item(0).apellido,
+			"telefono":result.rows.item(0).telefono,
+			"email":result.rows.item(0).email
+            });
+            }
+        /*  var alertPopup = $ionicPopup.alert({
+       title: 'Agenda',
+       template: 'Datos almacenados'+chats[0].nombre
+     });*/
+      statusMessage = chats[0].nombre;
+            
+            
+        },
+        function(error){
+         statusMessage="Error "+ error.message;  
+        });
+        
+        return chats;
+    }
 
 };
  
