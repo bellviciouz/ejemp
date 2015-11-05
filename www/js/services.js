@@ -11,8 +11,7 @@ var chats = [];
 
 return{
     all:function(){
-    chats = [];    
-    
+    chats = [];
   $cordovaSQLite.execute(db, 'SELECT * FROM personas ORDER BY id DESC')
             .then(
                 function(result) {
@@ -45,6 +44,7 @@ return{
         function(error){
          statusMessage="Error "+ error.message;  
         });
+        chats.splice(chats.indexOf(chat), 1);
     },
     
     get: function(chatId) {
@@ -62,21 +62,25 @@ return{
 			"email":result.rows.item(0).email
             });
             }
+            
+            
+            
+         
+            
+            
         /*  var alertPopup = $ionicPopup.alert({
        title: 'Agenda',
        template: 'Datos almacenados'+chats[0].nombre
      });*/
       statusMessage = chats[0].nombre;
             
-            
         },
         function(error){
          statusMessage="Error "+ error.message;  
         });
         
-        return chats;
+     return chats;
     }
-
 };
  
  

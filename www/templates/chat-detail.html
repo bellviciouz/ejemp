@@ -4,9 +4,57 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{chat[0].nombre}}">
-  <ion-content class="padding">
-    <!--<img ng-src="{{chat.face}}" style="width: 64px; height: 64px">-->
+<!--va entre p y ion-content-->
+<!--<img ng-src="{{chat.face}}" style="width: 64px; height: 64px">-->
+<ion-view view-title="{{persona[0].nombre}}">
+ 
+ 
+ <ion-content class="padding">
+  
+    <form name="form1" novalidate>
+    <div class="padding">
+        <label class="item item-input">
+            <span class="input-label">Nombre</span>
+            <input type="text" name="nombre" ng-model="persona[0].nombre" required >
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Apellido</span>
+            <input type="text" name="apellido" ng-model="persona[0].apellido" required>
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Telefono</span>
+            <input type="tel" name="telefono" ng-model="persona[0].telefono" required>
+        </label>
+        <label class="item item-input">
+            <span class="input-label">E-mail</span>
+            <input type="text" name="email" ng-model="persona[0].email" required>
+        </label>
+    </div>
+    
+    <div class="padding">
+        <p ng-show="form1.nombre.$error.required"> Escriba el nombre</p>
+        <p ng-show="form1.apellido.$error.required"> Escriba el apellido</p>
+        <p ng-show="form1.telefono.$error.required"> Escriba el Telefono</p>
+        <p ng-show="form1.email.$error.required"> Escriba el E-mail</p>
+    </div>
+    <input type="hidden" name="id" ng-model="persona[0].id">
+    
+    <!--esto estaba antes en el boton-->
+   <!-- ng-click="showAlert()"-->
+    
+    <button class= "button button-full button-positive"   ng-disabled="form1.$invalid" ng-click="guardar(persona[0])">
+            Guardar
+        </button>
+        <p>{{ statusMessage }}</p>
+    </form>
+     
+  </ion-content>
+ 
+ 
+ 
+ 
+ <!-- <ion-content class="padding">
+    
     <p>
     {{chat[0].id}}
       {{chat[0].apellido}}
@@ -17,4 +65,5 @@
     </p>
     <p>{{ statusMessage }}</p>
   </ion-content>
+  -->
 </ion-view>

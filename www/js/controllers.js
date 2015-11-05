@@ -22,9 +22,17 @@ angular.module('starter.controllers', [/*'ionic','ngCordova'*/])
         }, function(error) {
             $scope.statusMessage = "Error: " + error.message;
         })
-         
-     
-     
+  
+  /*       
+    chats.unshift({
+			"nombre":persona.nombre,
+			"apellido":persona.apellido,
+			"telefono":persona.telefono,
+			"email":persona.email
+        }
+        );
+      
+     */
      
      
    }
@@ -70,8 +78,24 @@ angular.module('starter.controllers', [/*'ionic','ngCordova'*/])
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaSQLite) {
+ // $scope.chat = Chats.get($stateParams.chatId);
+  //$scope.persona={nombre:"hola"};
+  $scope.persona = Chats.get($stateParams.chatId);
+  
+  $scope.guardar=function(persona){
+       $cordovaSQLite.execute(db, 'UPDATE personas SET nombre=?, apellido=?,telefono=?,email=? WHERE id=?', [persona.nombre,persona.apellido,persona.telefono,persona.email,persona.id])
+        .then(function(result) {
+            $scope.statusMessage = "Registro guardado";
+        }, function(error) {
+            $scope.statusMessage = "Error: " + error.message;
+        })
+  }
+  
+  
+  
+  
+  
 })
 
 .controller('AccountCtrl', function($scope) {
